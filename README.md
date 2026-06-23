@@ -16,7 +16,7 @@ Using controlled 1-D binary classification tasks and ReLU networks, I studied ho
 
 The animation below shows the evolution of a trained ReLU network and the candidate reconstruction points extracted from its learned geometry.
 
-[https://github.com/abdullah12353/<repo-name>/blob/main/training_dynamics.mp4](https://github.com/abdullah12353/MSc-DISS-privacy-attacks-relu-networks/blob/main/training_dynamics.mp4)
+🎥 [Training Dynamics Video](training_dynamics.mp4)
 
 As training progresses beyond 100% classification accuracy, candidate points continue moving toward the true support points of the training set.
 
@@ -38,17 +38,28 @@ The experiments were implemented in **PyTorch** and executed at scale on the **U
 
 ---
 
-# Key Result 1: Candidate Reconstruction from Network Geometry
+## Research Contributions
+
+* Implemented a piecewise-affine margin-crossing reconstruction attack for trained 1-D ReLU networks.
+* Built a PyTorch experiment pipeline for training, extraction, logging, aggregation, plotting, and statistical analysis.
+* Demonstrated near-perfect empirical reconstruction in feature-learning regimes.
+* Compared reconstruction behaviour across default, mean-field, and NTK/lazy training regimes.
+* Developed and evaluated a prototype extension of the reconstruction method to 3-layer ReLU networks.
+* Investigated theoretical conditions for eliminating false positives using margin geometry, No-Flat assumptions, and total-variation/path-norm ideas.
+
+---
+
+## Key Result 1: Candidate Reconstruction from Network Geometry
 
 ![Candidate Reconstruction](3.1.png)
 
 The learned ReLU network is piecewise-linear between breakpoints.
 
-This allows candidate reconstruction points (black crosses) to be recovered analytically rather than via brute-force search. Even in early experiments, the extracted candidates visibly align with the original training points.
+This allows candidate reconstruction points to be recovered analytically rather than through brute-force grid search. Even in early experiments, the extracted candidates visibly align with the original training points.
 
 ---
 
-# Key Result 2: Post-Convergence Geometric Alignment
+## Key Result 2: Post-Convergence Geometric Alignment
 
 ![Distance Decay](5.1.png)
 
@@ -60,7 +71,7 @@ The approximately linear behaviour on the log-scale plot suggests exponential co
 
 ---
 
-# Key Result 3: Feature Learning vs Lazy Training
+## Key Result 3: Feature Learning vs Lazy Training
 
 ![Precision by Regime](5.2.png)
 
@@ -69,8 +80,8 @@ A major question was whether reconstruction emerges simply from overparameterisa
 Experiments compared:
 
 * Default training
-* Mean-field (feature-learning) regimes
-* NTK/lazy-training regimes
+* Mean-field / feature-learning regimes
+* NTK / lazy-training regimes
 
 Feature-learning regimes achieved near-perfect endpoint precision, whereas reconstruction performance degraded substantially in the lazy regime.
 
@@ -78,7 +89,7 @@ This suggests the vulnerability is tied to learned feature geometry rather than 
 
 ---
 
-# Key Result 4: Robustness Across Distance Thresholds
+## Key Result 4: Robustness Across Distance Thresholds
 
 ![Robustness Analysis](5.9.png)
 
@@ -88,7 +99,7 @@ The precision curves and empirical cumulative distribution functions demonstrate
 
 ---
 
-# Key Result 5: Qualitative Multi-Seed Audit
+## Key Result 5: Qualitative Multi-Seed Audit
 
 ![Final Snapshots](5.12.png)
 
@@ -101,11 +112,11 @@ Each panel shows:
 * breakpoints
 * reconstructed candidate points
 
-The consistency across seeds provides strong qualitative evidence that the observed behaviour is not an artefact of a single training run.
+The consistency across seeds provides qualitative evidence that the observed behaviour is not an artefact of a single training run.
 
 ---
 
-# Novel Contribution: Extension to 3-Layer Networks
+## Novel Contribution: Extension to 3-Layer Networks
 
 The original reconstruction procedure was developed for shallow 2-layer ReLU networks.
 
@@ -115,11 +126,11 @@ Experiments demonstrated successful reconstruction behaviour in controlled setti
 
 ---
 
-# Mathematical Analysis
+## Mathematical Analysis
 
 The repository also includes supporting theoretical work:
 
-📄 **![proofs.pdf](https://github.com/abdullah12353/MSc-DISS-privacy-attacks-relu-networks/blob/main/proofs.pdf)**
+📄 [Supporting Proof Notes](proofs.pdf)
 
 The note explores conditions under which false positives can be eliminated and investigates connections between:
 
@@ -127,10 +138,22 @@ The note explores conditions under which false positives can be eliminated and i
 * Total variation minimisation
 * Implicit bias of gradient descent
 * Piecewise-linear ReLU representations
+* Path-norm and spline-based interpretations of trained ReLU networks
 
 ---
 
-# Technologies Used
+## Core Scripts
+
+| Script            | Purpose                                                                                                                                              |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `x3_train.py`     | Main experiment pipeline. Trains 1-D ReLU networks, extracts candidate reconstruction points, computes geometric metrics, and saves per-run outputs. |
+| `x3_aggregate.py` | Aggregates per-seed and per-regime outputs into analysis-ready tables for plotting and statistical evaluation.                                       |
+| `x3_plot.py`      | Generates the main dissertation figures, including distance decay, precision dynamics, robustness curves, and final snapshot audits.                 |
+| `x3_stats.py`     | Computes statistical summaries, confidence intervals, endpoint metrics, and reconstruction reliability statistics.                                   |
+
+---
+
+## Technologies Used
 
 * Python
 * PyTorch
@@ -142,23 +165,36 @@ The note explores conditions under which false positives can be eliminated and i
 
 ---
 
-# Repository Structure
+## Repository Contents
 
 ```text
-src/            Core training and reconstruction pipeline
-slurm/          HPC job scripts
-3.1.png         Candidate reconstruction example
-5.1.png         Distance convergence results
-5.2.png         Precision and endpoint reliability
-5.9.png         Robustness analysis
-5.12.png        Multi-seed qualitative audit
-training_dynamics.mp4
-proofs.pdf
+README.md                  Project overview and result summary
+x3_train.py                Main training and candidate extraction pipeline
+x3_aggregate.py            Aggregation script for multi-seed experiment outputs
+x3_plot.py                 Plotting script for dissertation figures
+x3_stats.py                Statistical analysis script
+
+3.1.png                    Candidate reconstruction example
+5.1.png                    Distance convergence results
+5.2.png                    Precision and endpoint reliability
+5.9.png                    Robustness analysis
+5.12.png                   Multi-seed qualitative audit
+
+training_dynamics.mp4      Animation of reconstruction dynamics during training
+proofs.pdf                 Supporting mathematical proof notes
 ```
 
 ---
 
-# Main Takeaway
+## Reproducibility Note
+
+The full dissertation experiments were run on the University of Warwick HPC cluster using Slurm job arrays. This repository is intended as a cleaned research artefact and portfolio version of the project, rather than a complete dump of all raw HPC outputs.
+
+Large intermediate result folders are not included. Instead, the repository contains the core experiment scripts, selected final figures, the training animation, and supporting proof notes.
+
+---
+
+## Main Takeaway
 
 Theoretical work previously guaranteed only a constant-fraction reconstruction of training supports.
 
