@@ -16,7 +16,7 @@ Using controlled 1-D binary classification tasks and ReLU networks, I studied ho
 
 The animation below shows the evolution of a trained ReLU network and the candidate reconstruction points extracted from its learned geometry.
 
-https://github.com/abdullah12353/<repo-name>/blob/main/training_dynamics.mp4
+[https://github.com/abdullah12353/<repo-name>/blob/main/training_dynamics.mp4](https://github.com/abdullah12353/MSc-DISS-privacy-attacks-relu-networks/blob/main/training_dynamics.mp4)
 
 As training progresses beyond 100% classification accuracy, candidate points continue moving toward the true support points of the training set.
 
