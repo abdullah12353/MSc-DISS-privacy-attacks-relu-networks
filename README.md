@@ -119,7 +119,7 @@ Experiments demonstrated successful reconstruction behaviour in controlled setti
 
 The repository also includes supporting theoretical work:
 
-📄 **proofs.pdf**
+📄 **![proofs.pdf](https://github.com/abdullah12353/MSc-DISS-privacy-attacks-relu-networks/blob/main/proofs.pdf)**
 
 The note explores conditions under which false positives can be eliminated and investigates connections between:
 
