@@ -16,7 +16,7 @@ Using controlled 1-D binary classification tasks and ReLU networks, I studied ho
 
 The animation below shows the evolution of a trained ReLU network and the candidate reconstruction points extracted from its learned geometry.
 
-🎥 [Training Dynamics Video](training_dynamics.mp4)
+🎥 [Training Dynamics Video](media/training_dynamics.mp4)
 
 As training progresses beyond 100% classification accuracy, candidate points continue moving toward the true support points of the training set.
 
@@ -51,7 +51,7 @@ The experiments were implemented in **PyTorch** and executed at scale on the **U
 
 ## Key Result 1: Candidate Reconstruction from Network Geometry
 
-![Candidate Reconstruction](3.1.png)
+![Candidate Reconstruction](figures/candidate_reconstruction.png)
 
 The learned ReLU network is piecewise-linear between breakpoints.
 
@@ -61,7 +61,7 @@ This allows candidate reconstruction points to be recovered analytically rather 
 
 ## Key Result 2: Post-Convergence Geometric Alignment
 
-![Distance Decay](5.1.png)
+![Distance Decay](figures/distance_decay.png)
 
 A central finding of the dissertation was that reconstruction quality continues improving **after** the network reaches 100% training accuracy.
 
@@ -73,7 +73,7 @@ The approximately linear behaviour on the log-scale plot suggests exponential co
 
 ## Key Result 3: Feature Learning vs Lazy Training
 
-![Precision by Regime](5.2.png)
+![Precision by Regime](figures/precision_by_regime.png)
 
 A major question was whether reconstruction emerges simply from overparameterisation or from genuine feature learning.
 
@@ -91,7 +91,7 @@ This suggests the vulnerability is tied to learned feature geometry rather than 
 
 ## Key Result 4: Robustness Across Distance Thresholds
 
-![Robustness Analysis](5.9.png)
+![Robustness Analysis](figures/robustness_analysis.png)
 
 To avoid relying on a single reconstruction threshold, I evaluated performance across a wide range of tolerances.
 
@@ -101,7 +101,7 @@ The precision curves and empirical cumulative distribution functions demonstrate
 
 ## Key Result 5: Qualitative Multi-Seed Audit
 
-![Final Snapshots](5.12.png)
+![Final Snapshots](figures/multi_seed_audit.png)
 
 The final reconstruction behaviour was inspected across multiple random seeds.
 
@@ -130,7 +130,7 @@ Experiments demonstrated successful reconstruction behaviour in controlled setti
 
 The repository also includes supporting theoretical work:
 
-📄 [Supporting Proof Notes](proofs.pdf)
+📄 [Supporting Proof Notes](docs/proofs.pdf)
 
 The note explores conditions under which false positives can be eliminated and investigates connections between:
 
@@ -144,12 +144,12 @@ The note explores conditions under which false positives can be eliminated and i
 
 ## Core Scripts
 
-| Script            | Purpose                                                                                                                                              |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `x3_train.py`     | Main experiment pipeline. Trains 1-D ReLU networks, extracts candidate reconstruction points, computes geometric metrics, and saves per-run outputs. |
-| `x3_aggregate.py` | Aggregates per-seed and per-regime outputs into analysis-ready tables for plotting and statistical evaluation.                                       |
-| `x3_plot.py`      | Generates the main dissertation figures, including distance decay, precision dynamics, robustness curves, and final snapshot audits.                 |
-| `x3_stats.py`     | Computes statistical summaries, confidence intervals, endpoint metrics, and reconstruction reliability statistics.                                   |
+| Script                | Purpose                                                                                                                                              |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/x3_train.py`     | Main experiment pipeline. Trains 1-D ReLU networks, extracts candidate reconstruction points, computes geometric metrics, and saves per-run outputs. |
+| `src/x3_aggregate.py` | Aggregates per-seed and per-regime outputs into analysis-ready tables for plotting and statistical evaluation.                                       |
+| `src/x3_plot.py`      | Generates the main dissertation figures, including distance decay, precision dynamics, robustness curves, and final snapshot audits.                 |
+| `src/x3_stats.py`     | Computes statistical summaries, confidence intervals, endpoint metrics, and reconstruction reliability statistics.                                   |
 
 ---
 
@@ -165,23 +165,29 @@ The note explores conditions under which false positives can be eliminated and i
 
 ---
 
-## Repository Contents
+## Repository Structure
 
 ```text
-README.md                  Project overview and result summary
-x3_train.py                Main training and candidate extraction pipeline
-x3_aggregate.py            Aggregation script for multi-seed experiment outputs
-x3_plot.py                 Plotting script for dissertation figures
-x3_stats.py                Statistical analysis script
+README.md
 
-3.1.png                    Candidate reconstruction example
-5.1.png                    Distance convergence results
-5.2.png                    Precision and endpoint reliability
-5.9.png                    Robustness analysis
-5.12.png                   Multi-seed qualitative audit
+figures/
+├── candidate_reconstruction.png
+├── distance_decay.png
+├── precision_by_regime.png
+├── robustness_analysis.png
+└── multi_seed_audit.png
 
-training_dynamics.mp4      Animation of reconstruction dynamics during training
-proofs.pdf                 Supporting mathematical proof notes
+media/
+└── training_dynamics.mp4
+
+docs/
+└── proofs.pdf
+
+src/
+├── x3_train.py
+├── x3_aggregate.py
+├── x3_plot.py
+└── x3_stats.py
 ```
 
 ---
